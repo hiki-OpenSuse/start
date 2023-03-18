@@ -1,3 +1,5 @@
+import { Watchlist } from './../watchlist/models/watchlist.model';
+import { WatchlistModule } from './../watchlist/watchlist.module';
 import { AuthModule } from './../auth/auth.module';
 import { User } from './../users/models/user.model';
 import { Module } from '@nestjs/common';
@@ -26,12 +28,13 @@ import { TokenModule } from "../token/token.module";
       database: configService.get('db_name'),
       synchronize: true,
       autoLoadModels: true,
-      models: [User]
+      models: [User, Watchlist]
     })
   }),
    UsersModule,
    AuthModule,
-   TokenModule
+   TokenModule,
+   WatchlistModule
   ],
   controllers: [AppController],
   providers: [AppService],

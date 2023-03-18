@@ -23,10 +23,4 @@ export class AuthController {
     login (@Body() dto: UserLoginDto): Promise<AuthUserResponse> {
         return this.authService.loginUser(dto)
     }
-
-    @UseGuards(JwtAuthGuard)
-    @Post('test')
-    test () {
-        return true
-    }
 }

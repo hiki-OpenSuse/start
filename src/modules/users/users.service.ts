@@ -1,3 +1,4 @@
+import { Watchlist } from './../watchlist/models/watchlist.model';
 import { CreateUserDTO, UpdateUserDto } from './dto/index';
 import { User } from './models/user.model';
 import { Injectable } from '@nestjs/common';
@@ -34,7 +35,11 @@ export class UsersService {
     async publicUser (email: string) {
         return this.userRepository.findOne({
             where: { email },
-            attributes: { exclude: ['password'] } 
+            attributes: { exclude: ['password'] },
+            include: {
+                model: Watchlist,
+                required: false
+            } 
         })
     }
 
@@ -43,7 +48,7 @@ export class UsersService {
         return dto
     }
 
-    async deleteUser (email: string) {
+    async deleteUser (email: string): Promise<boolean> {
         await this.userRepository.destroy({ where: { email } })
         return true
     }
